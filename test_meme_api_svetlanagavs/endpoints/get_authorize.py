@@ -26,14 +26,10 @@ class CheckToken(BaseEndpoint):
 
 
 def get_token(name='svetlana_gavs'):
-    auth = Authorize()
-    check = CheckToken()
-
     saved_token = os.environ.get('MEME_API_TOKEN')
-    if saved_token and check.check_token_is_alive(saved_token):
+    if saved_token and CheckToken().check_token_is_alive(saved_token):
         return saved_token
 
-    token = auth.authorize(name)
+    token = Authorize().authorize(name)
     os.environ['MEME_API_TOKEN'] = token
-
     return token
